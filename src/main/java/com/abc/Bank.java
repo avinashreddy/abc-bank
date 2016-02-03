@@ -1,5 +1,7 @@
 package com.abc;
 
+import com.google.common.base.Preconditions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Bank {
     }
 
     public void addCustomer(Customer customer) {
+        Preconditions.checkArgument(customer != null, "customer is null");
         customers.add(customer);
     }
 
