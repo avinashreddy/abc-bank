@@ -4,7 +4,8 @@ import lombok.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
+
 
 public class CustomerTest {
 
@@ -20,24 +21,25 @@ public class CustomerTest {
         savingsAccount.deposit(4000.0);
         savingsAccount.withdraw(200.0);
 
-        assertEquals("Statement for Henry\n" +
-                "\n" +
-                "Checking Account\n" +
-                "  deposit $100.00\n" +
-                "Total $100.00\n" +
-                "\n" +
-                "Savings Account\n" +
-                "  deposit $4,000.00\n" +
-                "  withdrawal $200.00\n" +
-                "Total $3,800.00\n" +
-                "\n" +
-                "Total In All Accounts $3,900.00", henry.getStatement());
+        assertThat(henry.getStatement()).isEqualTo(
+                "Statement for Henry\n" +
+                        "\n" +
+                        "Checking Account\n" +
+                        "  deposit $100.00\n" +
+                        "Total $100.00\n" +
+                        "\n" +
+                        "Savings Account\n" +
+                        "  deposit $4,000.00\n" +
+                        "  withdrawal $200.00\n" +
+                        "Total $3,800.00\n" +
+                        "\n" +
+                        "Total In All Accounts $3,900.00");
     }
 
     @Test
     public void testOneAccount() {
         Customer oscar = new Customer("Oscar").openAccount(new SavingAccount());
-        assertEquals(1, oscar.getNumberOfAccounts());
+        assertThat(oscar.getNumberOfAccounts()).isEqualTo(1);
     }
 
     @Test
@@ -45,6 +47,27 @@ public class CustomerTest {
         Customer oscar = new Customer("Oscar")
                 .openAccount(new SavingAccount());
         oscar.openAccount(new CheckingAccount());
-        assertEquals(2, oscar.getNumberOfAccounts());
+        assertThat(oscar.getNumberOfAccounts()).isEqualTo(2);
+
+    }
+
+    @Test
+    public void interestEarned() {
+        Customer oscar = new Customer("Oscar")
+                .openAccount(new SavingAccount() {
+                    @Override
+                    public double interestEarned() {
+                        return 100;
+                    }
+                }).openAccount(new SavingAccount() {
+                    @Override
+                    public double interestEarned() {
+                        return 200;
+                    }
+                });
+
+        assertThat(oscar.totalInterestEarned()).isEqualTo(300);
+
+
     }
 }
