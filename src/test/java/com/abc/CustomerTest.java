@@ -1,5 +1,6 @@
 package com.abc;
 
+import lombok.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -34,24 +35,16 @@ public class CustomerTest {
     }
 
     @Test
-    public void testOneAccount(){
+    public void testOneAccount() {
         Customer oscar = new Customer("Oscar").openAccount(new SavingAccount());
         assertEquals(1, oscar.getNumberOfAccounts());
     }
 
     @Test
-    public void testTwoAccount(){
+    public void testTwoAccount() {
         Customer oscar = new Customer("Oscar")
                 .openAccount(new SavingAccount());
         oscar.openAccount(new CheckingAccount());
         assertEquals(2, oscar.getNumberOfAccounts());
-    }
-
-    @Ignore
-    public void testThreeAcounts() {
-        Customer oscar = new Customer("Oscar")
-                .openAccount(new SavingAccount());
-        oscar.openAccount(new CheckingAccount());
-        assertEquals(3, oscar.getNumberOfAccounts());
     }
 }

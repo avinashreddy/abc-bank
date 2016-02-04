@@ -1,19 +1,25 @@
 package com.abc;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.ToString;
 
+import java.time.LocalDateTime;
 
+@ToString
 public class Transaction {
+
+    @Getter
     private final double amount;
 
-    private final Date transactionDate;
+    @Getter
+    private final LocalDateTime transactionDate;
 
     public Transaction(double amount) {
         this.amount = amount;
-        this.transactionDate = DateProvider.getInstance().now();
+        this.transactionDate = LocalDateTime.now();
     }
 
-    public double getAmount() {
-        return amount;
+    public boolean isWithdrawal() {
+        return amount < 0;
     }
 }

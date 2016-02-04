@@ -6,4 +6,9 @@ public class CheckingAccount extends Account {
     public String getAccountType() {
         return "Checking Account";
     }
+
+    @Override
+    public double interestEarned() {
+        return sumTransactions() * 0.001;
+    }
 }

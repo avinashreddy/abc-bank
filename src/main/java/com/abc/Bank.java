@@ -1,6 +1,6 @@
 package com.abc;
 
-import com.google.common.base.Preconditions;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,7 @@ public class Bank {
         customers = new ArrayList<Customer>();
     }
 
-    public void addCustomer(Customer customer) {
-        Preconditions.checkArgument(customer != null, "customer is null");
+    public void addCustomer(@NonNull Customer customer) {
         customers.add(customer);
     }
 
@@ -32,7 +31,7 @@ public class Bank {
 
     public double totalInterestPaid() {
         double total = 0;
-        for(Customer c: customers)
+        for (Customer c : customers)
             total += c.totalInterestEarned();
         return total;
     }
